@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 const customer = require("./models/customer.js");
+let custName;
+let custAge;
 
 const connect = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
@@ -14,9 +16,14 @@ const createCustomer = async () => {
     age: custAge,
   };
 
-  const customer = await customer.new(customerData);
-  console.log("New customer:", customer);
+  const Customer = await customer.create(customerData);
+  console.log("New customer:", Customer);
 };
+
+const custQueries = async () => {
+    console.log('Queries running');
+    await createCustomer();
+}
 
 const mainMenu = `Welcome to the CRM
 
@@ -37,9 +44,9 @@ let answer = prompt("Type the number of the action to run: ");
 if (answer === "1") {
   console.clear();
   console.log("Great! Lets enter a new customer in our DB.");
-  let custName = prompt("Please type the name of the customer: ");
-  let custAge = prompt("Please type the age of the customer: ");
-  createCustomer();
+  custName = prompt("Please type the name of the customer: ");
+  custAge = prompt("Please type the age of the customer: ");
+  custQueries();
 }
 
 connect();
