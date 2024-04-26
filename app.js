@@ -24,16 +24,16 @@ const custQueries = async () => {
   console.log("Queries running");
   await createCustomer();
   // Option 2 printing all customers
-//   await findCustomers();
+  //   await findCustomers();
 };
 
 const findCustomers = async () => {
-    const cust = await customer.find({});
-    console.log('Below is the list of all customers:');
-    cust.forEach(e => {
-        console.log(`id: ${e._id} -- Name: ${e.name}, Age: ${e.age}`);
-    });
-    // console.log("All customers in the DB: ", cust);
+  const cust = await customer.find({});
+  console.log("Below is the list of all customers:");
+  cust.forEach((e) => {
+    console.log(`id: ${e._id} -- Name: ${e.name}, Age: ${e.age}`);
+  });
+  let continueMenu = prompt("Type 1 and press enter to return to main menu: ");
 };
 
 const mainMenu = `Welcome to the CRM
@@ -61,11 +61,9 @@ if (answer === "1") {
 } else if (answer === "2") {
   console.clear();
   findCustomers();
-//   const returnMain = prompt('Type 0 and press enter to return to main menu! ');
 } else if (answer === "3") {
-    console.clear();
-    findCustomers();
-    console.log('Type the "id" of the customer you would like to update here: ');
+  console.clear();
+  updateCustomer();
 }
 
 connect();
