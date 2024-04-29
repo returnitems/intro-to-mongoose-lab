@@ -193,8 +193,8 @@ const mainMenu = async () => {
         await disconnect();
         running = false;
         break;
-    }
-  }
+    };
+  };
 };
 
 mainMenu();
