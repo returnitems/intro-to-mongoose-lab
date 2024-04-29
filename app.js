@@ -71,7 +71,7 @@ const disconnect = async () => {
 
 // connect();
 
-// ************************************************************************************************
+// *************************************Better formatting and use of functions for the main menu which can repeat till exited by user***********************************************************
 
 const createCustomer = async () => {
   const customerData = {
@@ -83,6 +83,8 @@ const createCustomer = async () => {
   console.log("New customer:", Customer);
 };
 
+
+
 const findCustomers = async () => {
   const cust = await customer.find({});
   console.log("Below is the list of all customers:");
@@ -92,14 +94,51 @@ const findCustomers = async () => {
   // let continueMenu = prompt("Type 1 and press enter to return to main menu: ");
 };
 
+
+
+const updateCustomer = async () => {
+  await findCustomers();
+  const custID = prompt('Please enter the customer ID of the customer you want to update: ');
+  const newName = prompt('Enter updated name for customer: ');
+  const newAge = prompt('Enter updated age for customer: ');
+
+  const updatedCust = await customer.findByIdAndUpdate(
+    custID,
+    {
+      name: newName,
+      age: newAge,
+    },
+    { new: true }
+  );
+  if (updatedCust) {
+    console.log('Here is the customer with updated name and age:', updatedCust);
+  } else {
+    console.log('Entered ID not found');
+  }
+};
+
+
+
+const deleteCustomer = async () => {
+  await findCustomers();
+  const custID = prompt('Please enter the customer ID of the customer you want to delete: ');
+  const deletedCust = await customer.findByIdAndDelete(custID);
+
+  if (deleteCustomer) {
+    console.log('The entered customer has been deleted successfully!');
+  } else {
+    console.log('Entered ID not found');
+  }
+};
+
+
+
 const mainMenu = async () => {
   await connect();
   console.clear();
   console.log("Welcome to the CRM!");
   let running = true;
   while (running) {
-    // console.clear();
-
     const menuText = `What would you like to do?
 
     1. Create a customer
@@ -129,7 +168,7 @@ const mainMenu = async () => {
     // } else if (answer === "5") {
     //   disconnect();
     // }
-
+    // Swapped if/else with switch/case after learning how much easier they are for this situation
     switch (answer) {
       case "1":
         console.clear();
@@ -138,19 +177,19 @@ const mainMenu = async () => {
         custAge = prompt("Please type the age of the customer: ");
         await createCustomer();
         break;
-      case '2':
+      case "2":
         console.clear();
         await findCustomers();
         break;
-      case '3':
+      case "3":
         console.clear();
         await updateCustomer();
         break;
-      case '4':
+      case "4":
         console.clear();
         await deleteCustomer();
         break;
-      case '5':
+      case "5":
         await disconnect();
         running = false;
         break;
